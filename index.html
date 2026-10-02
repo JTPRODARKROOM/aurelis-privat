@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090a0c">
+<title>Aurelis Private • Wealth Simulator</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#090a0c;--panel:#111317;--panel2:#17191e;--text:#f4f4f2;--muted:#92959c;--line:#292c32;--platinum:#d9d9d5;--accent:#f1f0eb;--good:#b9d9c5;--danger:#e1b8b8}
+*{box-sizing:border-box}body{margin:0;background:#050607;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input{font:inherit}button{cursor:pointer}
+.app{max-width:480px;margin:auto;min-height:100dvh;background:linear-gradient(180deg,#090a0c,#0b0c0f);padding-bottom:86px}
+.hidden{display:none!important}.top{padding:22px 20px 8px;display:flex;justify-content:space-between;align-items:center}
+.brand{letter-spacing:.22em;font-size:12px;font-weight:700}.sub{font-size:10px;color:#777b82;letter-spacing:.12em;margin-top:4px}
+.icon{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#101216;color:#eee}
+.content{padding:14px 18px}.eyebrow{color:#8c9097;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.hero{border:1px solid #30333a;border-radius:22px;padding:23px 21px;background:radial-gradient(circle at 90% 0,#24272d 0,#121419 35%,#0d0e11 75%);box-shadow:0 18px 60px #0008}
+.balance{font-size:37px;font-weight:600;letter-spacing:-.04em;margin:9px 0}.balance small{font-size:18px;color:#aeb1b5}.equiv{font-size:12px;color:#999da4}.badge{display:inline-flex;padding:6px 9px;border:1px solid #45484f;border-radius:999px;font-size:9px;letter-spacing:.13em;margin-top:17px;color:#d7d8d5}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:12px}.card{border:1px solid var(--line);border-radius:17px;background:#101216;padding:15px}.label{font-size:10px;color:#858990;text-transform:uppercase;letter-spacing:.1em}.value{font-size:18px;margin-top:8px}.positive{color:var(--good)}
+.section{margin-top:22px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.sectiontitle{font-size:15px;font-weight:600}.link{font-size:11px;color:#aaaeb5}
+.tx{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #202228}.tx:last-child{border:0}.avatar{width:38px;height:38px;border-radius:12px;background:#1a1c21;display:grid;place-items:center;font-size:11px;color:#d6d7d5}.txmain{flex:1}.txname{font-size:13px}.txmeta{font-size:10px;color:#777b82;margin-top:3px}.amount{font-size:12px}.in{color:var(--good)}.out{color:#d3d4d1}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);height:76px;background:#0b0c0fef;backdrop-filter:blur(18px);border-top:1px solid #25282e;display:grid;grid-template-columns:repeat(5,1fr);padding-bottom:env(safe-area-inset-bottom);z-index:10}.nav{border:0;background:none;color:#696d74;font-size:9px}.nav.active{color:#eee}.nav span{display:block;font-size:19px;margin-bottom:5px}
+.pageTitle{font-size:26px;font-weight:600;margin:4px 0 5px}.muted{color:var(--muted);font-size:12px}.list{border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:16px;background:#101216}.row{padding:15px;border-bottom:1px solid #22252a;display:flex;justify-content:space-between;gap:10px}.row:last-child{border:0}.pill{font-size:9px;border:1px solid #3a3d43;padding:5px 7px;border-radius:999px;color:#bbbdbf}
+.login{min-height:100dvh;display:flex;align-items:center;padding:25px;background:radial-gradient(circle at 50% 15%,#24272c,#070809 55%)}.loginbox{width:100%;max-width:390px;margin:auto}.seal{width:58px;height:58px;border:1px solid #55585e;border-radius:50%;display:grid;place-items:center;margin-bottom:22px;color:#eee;letter-spacing:.12em;font-weight:700}.login h1{font-size:29px;margin:0}.login p{color:#858990;font-size:12px;line-height:1.6}.field{margin-top:15px}.field label{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#858990;margin-bottom:7px}.field input{width:100%;background:#111317;border:1px solid #30333a;color:#fff;border-radius:13px;padding:14px;outline:none}.field input:focus{border-color:#777b82}.primary{width:100%;margin-top:18px;padding:15px;border:0;border-radius:13px;background:#e7e7e2;color:#090a0c;font-weight:700}.legal{font-size:9px!important;color:#666a71!important;margin-top:17px}.notice{margin-top:16px;border:1px solid #35383e;border-radius:12px;padding:10px;font-size:9px;color:#8f939a;line-height:1.5}
+.chart{height:150px;margin-top:15px;border:1px solid var(--line);border-radius:18px;padding:10px;background:#0d0f12}.chart svg{width:100%;height:100%}
+.actiongrid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:15px}.action{padding:17px;border:1px solid var(--line);border-radius:16px;background:#111317;text-align:left;color:#eee}.action b{display:block;font-size:13px;margin-top:8px}.action small{color:#777b82}
+.modal{position:fixed;inset:0;background:#000a;display:grid;place-items:end;z-index:20}.sheet{width:min(480px,100%);background:#111317;border:1px solid #30333a;border-radius:22px 22px 0 0;padding:20px;min-height:35vh}.close{float:right;background:none;border:0;color:#aaa;font-size:22px}
+.footerMark{padding:25px 0;text-align:center;color:#4f535a;font-size:8px;letter-spacing:.12em}
+</style>
+</head>
+<body>
+<div id="login" class="login">
+ <div class="loginbox">
+  <div class="seal">AP</div>
+  <div class="brand">AURELIS</div><div class="sub">PRIVATE WEALTH SIMULATOR</div>
+  <h1 style="margin-top:28px">Secure access</h1>
+  <p>Private wealth-management demonstration environment.</p>
+  <div class="field"><label>Account ID</label><input id="loginId" autocomplete="off" value="JABIR-APW-72841"></div>
+  <div class="field"><label>Password</label><input id="loginPw" type="password" autocomplete="off" placeholder="Enter password"></div>
+  <button class="primary" onclick="login()">Unlock simulator</button>
+  <div class="notice">DEMO ENVIRONMENT • AURELIS PRIVATE IS A FICTIONAL INSTITUTION. NO REAL FUNDS, BANKING SERVICES OR PAYMENT NETWORKS ARE CONNECTED.</div>
+  <p class="legal">For entertainment and UI demonstration only.</p>
+ </div>
+</div>
+
+<div id="app" class="app hidden">
+<header class="top"><div><div class="brand">AURELIS</div><div class="sub">PRIVATE WEALTH</div></div><button class="icon" onclick="openPage('profile')">JT</button></header>
+<main id="content" class="content"></main>
+<nav class="bottom">
+ <button class="nav active" data-page="home" onclick="openPage('home')"><span>⌂</span>Overview</button>
+ <button class="nav" data-page="portfolio" onclick="openPage('portfolio')"><span>◫</span>Portfolio</button>
+ <button class="nav" data-page="transfer" onclick="openPage('transfer')"><span>↗</span>Transfer</button>
+ <button class="nav" data-page="services" onclick="openPage('services')"><span>◇</span>Services</button>
+ <button class="nav" data-page="profile" onclick="openPage('profile')"><span>○</span>Profile</button>
+</nav>
+</div>
+<div id="modal" class="modal hidden" onclick="if(event.target.id==='modal')closeModal()"><div class="sheet"><button class="close" onclick="closeModal()">×</button><div id="modalBody"></div></div></div>
+
+<script>
+const PASSWORD="₹₹jtrb₹₹", ID="JABIR-APW-72841";
+const txs=[
+ ["Northstar Atelier","Consulting settlement","+$48,500.00","in","NA"],
+ ["Lumen Arc Holdings","Private investment","+$125,000.00","in","LA"],
+ ["Ardent Meridian","Advisory retainer","+$18,750.00","in","AM"],
+ ["J. Mercer","Private transfer","+$9,800.00","in","JM"],
+ ["Aurelis Card","Lifestyle purchase","−$4,280.00","out","AC"],
+ ["Pacific Crown Air","Travel services","−$7,940.00","out","PC"]
+];
+function login(){
+ if(document.getElementById('loginId').value===ID && document.getElementById('loginPw').value===PASSWORD){
+  localStorage.setItem("aurelis_demo","1"); document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden');openPage('home');
+ } else alert("Access denied. Use the fictional credentials configured for this simulator.");
+}
+function init(){if(localStorage.getItem("aurelis_demo")){loginScreenHide();openPage('home')}}
+function loginScreenHide(){document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden')}
+function openPage(page){
+ document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.page===page));
+ const c=document.getElementById("content");
+ if(page==="home") c.innerHTML=home();
+ if(page==="portfolio") c.innerHTML=portfolio();
+ if(page==="transfer") c.innerHTML=transfer();
+ if(page==="services") c.innerHTML=services();
+ if(page==="profile") c.innerHTML=profile();
+ window.scrollTo(0,0);
+}
+function home(){return `<div class="eyebrow">02 October 2026 • Private client</div>
+<div class="hero"><div class="label">Total relationship value</div><div class="balance">$84,000,000<small>.00</small></div><div class="equiv">≈ ₹7,45,56,00,000 • indicative simulator conversion</div><div class="badge">PRIVATE WEALTH • PLATINUM TIER</div></div>
+<div class="grid"><div class="card"><div class="label">Available liquidity</div><div class="value">$18.42M</div></div><div class="card"><div class="label">Invested assets</div><div class="value">$65.58M</div></div></div>
+<div class="section"><div class="sectionhead"><div class="sectiontitle">Recent activity</div><div class="link" onclick="openPage('transfer')">View all</div></div><div class="list">${txs.slice(0,4).map(t=>tx(t)).join("")}</div></div>
+<div class="section"><div class="sectionhead"><div class="sectiontitle">Quick access</div></div><div class="actiongrid">
+<button class="action" onclick="openPage('transfer')">↗<b>Transfer</b><small>Simulate a private transfer</small></button>
+<button class="action" onclick="openPage('portfolio')">◫<b>Portfolio</b><small>Holdings and allocation</small></button>
+<button class="action" onclick="openPage('services')">◇<b>Services</b><small>Cards, insurance, travel</small></button>
+<button class="action" onclick="statement()">▤<b>Statement</b><small>View demo statement</small></button></div></div>
+<div class="footerMark">FICTIONAL DEMONSTRATION • NOT A BANK</div>`}
+function tx(t){return `<div class="tx"><div class="avatar">${t[4]}</div><div class="txmain"><div class="txname">${t[0]}</div><div class="txmeta">${t[1]} • 02 Oct 2026</div></div><div class="amount ${t[3]}">${t[2]}</div></div>`}
+function portfolio(){return `<div class="eyebrow">Private markets</div><div class="pageTitle">Portfolio</div><div class="muted">Illustrative asset allocation</div>
+<div class="chart"><svg viewBox="0 0 400 130" preserveAspectRatio="none"><polyline fill="none" stroke="#d9d9d5" stroke-width="3" points="0,105 35,96 70,101 105,75 140,82 175,55 210,62 245,44 280,51 315,30 350,38 400,15"/></svg></div>
+<div class="list"><div class="row"><span>Global equities</span><b>$28.6M</b></div><div class="row"><span>Private markets</span><b>$16.8M</b></div><div class="row"><span>Fixed income</span><b>$9.4M</b></div><div class="row"><span>Real assets</span><b>$7.2M</b></div><div class="row"><span>Liquidity</span><b>$18.4M</b></div></div>`}
+function transfer(){return `<div class="eyebrow">Payments</div><div class="pageTitle">Private transfer</div><div class="muted">Fictional transaction simulator</div>
+<div class="field"><label>Recipient</label><input id="recipient" placeholder="Person or company"></div><div class="field"><label>Amount USD</label><input id="amount" inputmode="decimal" placeholder="0.00"></div><div class="field"><label>Reference</label><input id="ref" placeholder="Optional reference"></div><button class="primary" onclick="simulateTransfer()">Review transfer</button>
+<div class="notice">This action only creates a local demo transaction. No payment network, bank, card, UPI, or wallet is contacted.</div>`}
+function services(){return `<div class="eyebrow">Concierge</div><div class="pageTitle">Services</div><div class="muted">Fictional premium services</div>
+<div class="actiongrid"><button class="action" onclick="service('Platinum Card')">▣<b>Platinum Card</b><small>Virtual card simulator</small></button><button class="action" onclick="service('Global Insurance')">◇<b>Insurance</b><small>Coverage dashboard</small></button><button class="action" onclick="service('Global Travel')">✈<b>Travel</b><small>Private travel desk</small></button><button class="action" onclick="service('Concierge')">◆<b>Concierge</b><small>Dedicated service desk</small></button></div>`}
+function profile(){return `<div class="eyebrow">Client identity</div><div class="pageTitle">Jabirthameem</div><div class="muted">Private client profile</div><div class="list"><div class="row"><span>Account ID</span><b>${ID}</b></div><div class="row"><span>Relationship</span><b>Platinum</b></div><div class="row"><span>Primary currency</span><b>USD</b></div><div class="row"><span>Security</span><span class="pill">DEMO ACTIVE</span></div></div><button class="primary" onclick="logout()">Lock simulator</button><div class="notice">Aurelis Private is an invented brand for this demonstration. It is not affiliated with or representative of any real bank.</div>`}
+function simulateTransfer(){let r=document.getElementById('recipient').value||"Demo recipient",a=document.getElementById('amount').value||"0.00";document.getElementById('modalBody').innerHTML=`<div class="eyebrow">Transfer review</div><h2>${r}</h2><p class="muted">Amount</p><div class="balance">$${Number(a).toLocaleString('en-US',{minimumFractionDigits:2})}</div><button class="primary" onclick="closeModal();alert('Demo transfer recorded locally. No real funds moved.')">Confirm demo transfer</button>`;document.getElementById('modal').classList.remove('hidden')}
+function service(x){document.getElementById('modalBody').innerHTML=`<div class="eyebrow">Aurelis service</div><h2>${x}</h2><p class="muted">This is a fictional interactive feature for the simulator. No real service, payment, insurance policy or card is being issued.</p>`;document.getElementById('modal').classList.remove('hidden')}
+function statement(){document.getElementById('modalBody').innerHTML=`<div class="eyebrow">Demo statement</div><h2>October 2026</h2><p class="muted">Opening relationship value: $83,811,430.00</p><p class="muted">Illustrative activity: +$202,050.00</p><p class="muted">Illustrative spending: −$12,220.00</p><div class="notice">SIMULATED DOCUMENT • NOT PROOF OF FUNDS</div>`;document.getElementById('modal').classList.remove('hidden')}
+function closeModal(){document.getElementById('modal').classList.add('hidden')}
+function logout(){localStorage.removeItem("aurelis_demo");location.reload()}
+init();
+</script>
+</body></html>
